@@ -1,0 +1,20 @@
+body {
+	background:#f8f9fa
+}
+
+#logo svg {
+	margin-right:10px
+}
+
+.section {
+	font-weight:bold
+}
+
+.badge-type {
+	color:#f8f9fa;
+	background:#0d6efd;
+	font-size:0.8em;
+	font-weight:bold;
+	border-radius:.5em;
+	padding:4px 8px
+}

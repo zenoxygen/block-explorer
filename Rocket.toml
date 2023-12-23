@@ -1,0 +1,35 @@
+[default]
+rpc_url = ""
+rpc_user = ""
+rpc_password = ""
+template_dir = "templates/"
+# address = "127.0.0.1"
+# port = 8000
+# workers = 1
+# ident = "Rocket"
+# temp_dir = "/tmp"
+# keep_alive = 5
+# max_blocking = 512
+# log_level = "normal"
+
+# [default.limits]
+# form = "64 kB"
+# json = "1 MiB"
+# msgpack = "2 MiB"
+# "file/jpg" = "5 MiB"
+
+# [default.tls]
+# certs = "path/to/cert-chain.pem"
+# key = "path/to/key.pem"
+
+# [default.shutdown]
+# ctrlc = true
+# signals = ["term", "hup"]
+# grace = 5
+# mercy = 5
+
+# [debug]
+# port = 8000
+
+#[release]
+#port = 9999

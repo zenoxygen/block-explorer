@@ -1,0 +1,18 @@
+{% extends "base" %}
+
+{% block content %}
+<h1 class="mb-4">About</h1>
+<div class="row">
+	<div class="col-lg-12 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Chain</div> {{ blockchain_info.chain }}</li>
+				<li class="list-group-item"><div class="section">Version</div> {{ network_info.subversion }}</li>
+				<li class="list-group-item"><div class="section">Connections</div> {{ network_info.connections }}</li>
+				<li class="list-group-item"><div class="section">Blocks</div> {{ blockchain_info.blocks | format_number }}</li>
+				<li class="list-group-item"><div class="section">Difficulty</div> {{ blockchain_info.difficulty | format_number }}</li>
+			</ul>
+		</div>
+	</div>
+</div
+{% endblock content %}

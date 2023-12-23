@@ -1,0 +1,9 @@
+{% extends "base" %}
+
+{% block content %}
+<div class="container text-center">
+	<h1 class="mt-5">Internal Server Error</h1>
+	<p>The server encountered an unexpected condition.</p>
+	<a href="/" class="btn btn-primary">Go Home</a>
+</div>
+{% endblock content %}

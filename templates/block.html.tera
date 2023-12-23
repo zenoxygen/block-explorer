@@ -1,0 +1,45 @@
+{% extends "base" %}
+
+{% block content %}
+<h1 class="mb-4">Block {{ block.height }}</h1>
+<div class="row">
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Hash</div> <a href="/block/{{ block.hash }}">{{ block.hash | format_hash }}</a></li>
+				<li class="list-group-item"><div class="section">Timestamp</div> {{ block.time | format_time }}</li>
+				<li class="list-group-item"><div class="section">Size</div> {{ block.size | format_number }} bytes</li>
+				<li class="list-group-item"><div class="section">Weight</div> {{ block.weight | format_number }} bytes</li>
+				{% if block.previousblockhash %}
+				<li class="list-group-item"><div class="section">Previous Block</div> <a href="/block/{{ block.previousblockhash }}">{{ block.previousblockhash | format_hash }}</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Fee span</div> {{ block_stats.minfeerate }} - {{ block_stats.maxfeerate }} sat/vByte</li>
+				<li class="list-group-item"><div class="section">Median fee</div> {{ block_stats.feerate_percentiles[2] }} sat/vByte</li>
+				<li class="list-group-item"><div class="section">Total fees</div> {{ block_stats.totalfee / 100000000 | format_number(rounded=8) }} BTC</li>
+				<li class="list-group-item"><div class="section">Block reward</div> {{ block_stats.subsidy / 100000000 | format_number(rounded=8) }} BTC</li>
+				{% if block.nextblockhash %}
+				<li class="list-group-item"><div class="section">Next Block</div> <a href="/block/{{ block.nextblockhash }}">{{ block.nextblockhash | format_hash }}</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</div>
+<h2 class="mb-4">Transactions ({{ block.tx | length }})</h2>
+<div class="row">
+	<div class="col-lg-12 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				{% for tx in block.tx %}
+				<li class="list-group-item"><a href="/tx/{{ tx }}">{{ tx }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock content %}

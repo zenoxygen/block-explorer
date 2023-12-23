@@ -1,0 +1,37 @@
+use rocket::serde::{Deserialize, Serialize};
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(crate = "rocket::serde")]
+pub struct BlockStats {
+    pub avgfee: i64,
+    pub avgfeerate: i64,
+    pub avgtxsize: i64,
+    pub blockhash: String,
+    pub feerate_percentiles: Vec<i64>,
+    pub height: i64,
+    pub ins: i64,
+    pub maxfee: i64,
+    pub maxfeerate: i64,
+    pub maxtxsize: i64,
+    pub medianfee: i64,
+    pub mediantime: i64,
+    pub mediantxsize: i64,
+    pub minfee: i64,
+    pub minfeerate: i64,
+    pub mintxsize: i64,
+    pub outs: i64,
+    pub subsidy: i64,
+    pub swtotal_size: i64,
+    pub swtotal_weight: i64,
+    pub swtxs: i64,
+    pub time: i64,
+    pub total_out: i64,
+    pub total_size: i64,
+    pub total_weight: i64,
+    pub totalfee: i64,
+    pub txs: i64,
+    pub utxo_increase: i64,
+    pub utxo_size_inc: i64,
+    pub utxo_increase_actual: i64,
+    pub utxo_size_inc_actual: i64,
+}

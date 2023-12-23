@@ -1,0 +1,69 @@
+{% extends "base" %}
+
+{% block content %}
+<h1 class="mb-4">Transaction details ({{ tx.confirmations }} confirmations)</h1>
+<div class="row">
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Timestamp</div> {{ tx.time | format_time }}</li>
+				<li class="list-group-item"><div class="section">TxID</div> {{ tx.txid | format_hash }}</li>
+				<li class="list-group-item"><div class="section">Block</div> <a href="/block/{{ tx.blockhash }}">{{ tx.blockhash | format_hash }}</a></li>
+				<li class="list-group-item"><div class="section">Confirmations</div> {{ tx.confirmations | format_number }}</li>
+				<li class="list-group-item"><div class="section">Total inputs</div> {{ total_input_value | format_number(rounded=8) }} BTC</li>
+				<li class="list-group-item"><div class="section">Total outputs</div> {{ total_output_value | format_number(rounded=8) }} BTC</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Fee</div> {{ tx_fee * 100000000 | format_number }} sat</li>
+				<li class="list-group-item"><div class="section">Feerate</div> {{ tx_fee_rate * 100000000 | format_number }} sat/vByte</li>
+				<li class="list-group-item"><div class="section">Size</div> {{ tx.size | format_number }} bytes</li>
+				<li class="list-group-item"><div class="section">Virtual size</div> {{ tx.vsize | format_number }} vBytes</li>
+				<li class="list-group-item"><div class="section">Locktime</div> {{ tx.locktime }}</li>
+				<li class="list-group-item"><div class="section">Version</div> {{ tx.version }}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<h2 class="mb-4">Inputs / Outputs</h2>
+<div class="row">
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				{% for vin in tx.vin %}
+				<li class="list-group-item">
+					{% if vin.coinbase %}
+					Coinbase Transaction
+					{% else %}
+					<div>
+						{% if input_addresses[loop.index0] %}
+						<a href="/address/{{ input_addresses[loop.index0] }}">{{ input_addresses[loop.index0] }}</a><br>
+						{% endif %}
+						TxID: {{ vin.txid | format_hash }}
+					</div>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="col-lg-6 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				{% for vout in tx.vout %}
+				<li class="list-group-item">
+					{% if vout.scriptPubKey.address %}
+					<div><a href="/address/{{ vout.scriptPubKey.address }}">{{ vout.scriptPubKey.address }}</a></div>
+					{% endif %}
+					<div>{{ vout.value | format_number(rounded=8) }} BTC</div>
+					<div><span class="badge-type">{{ vout.scriptPubKey.type }}</span></div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock content %}

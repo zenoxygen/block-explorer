@@ -1,0 +1,31 @@
+{% extends "base" %}
+
+{% block content %}
+<h1 class="mb-4">Latest Blocks</h1>
+<div class="row">
+	{% for block in blocks %}
+	<div class="col-lg-4 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h2>{{ block.height }}</h2>
+					<a href="/block/{{ block.hash }}">{{ block.hash | format_hash }}</a>
+				</li>
+				<li class="list-group-item">
+					<div class="section">Timestamp</div>
+					{{ block.time | format_time }}
+				</li>
+				<li class="list-group-item">
+					<div class="section">Transactions</div>
+					{{ block.tx | length | format_number }}
+				</li>
+				<li class="list-group-item">
+					<div class="section">Size</div>
+					{{ block.size | format_number }} bytes
+				</li>
+			</ul>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}

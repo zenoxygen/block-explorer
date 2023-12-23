@@ -1,0 +1,15 @@
+{% extends "base" %}
+
+{% block content %}
+<h1 class="mb-4">Address details</h1>
+<div class="row">
+	<div class="col-lg-12 mb-4">
+		<div class="card">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item"><div class="section">Address</div> {{ address_info.address }}</li>
+				<li class="list-group-item"><div class="section">scriptPubKey</div> {{ address_info.scriptPubKey }}</li>
+			</ul>
+		</div>
+	</div>
+</div
+{% endblock content %}

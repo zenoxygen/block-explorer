@@ -14,10 +14,8 @@ mod utils;
 use anyhow::{anyhow, Result};
 use rocket::{
     fs::{relative, FileServer},
-    http::Method,
     serde::Deserialize,
 };
-use rocket_cors::{AllowedHeaders, AllowedOrigins};
 use rocket_dyn_templates::{Engines, Template};
 
 use crate::rpc_client::RpcClient;
@@ -41,28 +39,6 @@ async fn main() -> Result<()> {
 
     let rpc_client = RpcClient::new(config.rpc_url, config.rpc_user, config.rpc_password).await?;
 
-    let cors = rocket_cors::CorsOptions {
-        allowed_origins: AllowedOrigins::All,
-        allowed_methods: vec![Method::Get, Method::Post]
-            .into_iter()
-            .map(From::from)
-            .collect(),
-        allowed_headers: AllowedHeaders::some(&[
-            "Authorization",
-            "Accept",
-            "Access-Control-Allow-Headers",
-            "Origin",
-            "X-Requested-With",
-            "Content-Type",
-            "Access-Control-Request-Method",
-            "Access-Control-Request-Headers",
-        ]),
-        allow_credentials: true,
-        ..Default::default()
-    }
-    .to_cors()
-    .map_err(|e| anyhow!("failed to init cors: {e}"))?;
-
     let template = Template::custom(|engines: &mut Engines| {
         engines
             .tera
@@ -78,7 +54,6 @@ async fn main() -> Result<()> {
     let rocket = rocket::build();
 
     rocket
-        .attach(cors)
         .attach(template)
         .manage(rpc_client)
         .mount("/", FileServer::from(relative!("/public")))
